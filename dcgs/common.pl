@@ -14,15 +14,15 @@
 ]).
 
 % Parsers
-whitespace --> [].
 whitespace --> " ", space.
+whitespace --> [].
 
-space --> [].
 space --> blank, space.
+space --> [].
 
 % Required space.
-rspace --> blank.
 rspace --> blank, space.
+rspace --> blank.
 
 blank --> " ".
 blank --> "\n".

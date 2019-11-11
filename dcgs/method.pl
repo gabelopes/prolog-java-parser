@@ -1,10 +1,10 @@
-:- module(method, [method/3]).
+:- module(method, [method/6]).
 
 :- use_module(common).
 :- use_module(identifier).
 :- use_module(modifiers).
 
-method(method(Modifiers, Return, Name, Parameters)) -->
+method(Modifiers, Return, Name, Parameters) -->
   modifiers(Modifiers),
   rspace,
   identifier(Return),
@@ -21,16 +21,16 @@ method(method(Modifiers, Return, Name, Parameters)) -->
   space,
   right_brace.
 
-parameters([]) --> [].
 parameters(Parameters) --> parameters_production(Parameters).
+parameters([]) --> [].
 
-parameters_production([Parameter]) --> parameter(Parameter).
 parameters_production([Parameter|Rest]) -->
   parameter(Parameter),
   space,
   comma,
   space,
   parameters_production(Rest).
+parameters_production([Parameter]) --> parameter(Parameter).
 
 parameter(parameter(Modifiers, Type, Name)) -->
   modifiers(Modifiers),

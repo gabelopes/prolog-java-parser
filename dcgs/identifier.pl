@@ -4,11 +4,11 @@ identifier(Identifier) -->
   identifier_head(Characters),
   { atom_chars(Identifier, Characters) }.
 
-identifier_head([Letter]) --> letter(Letter).
 identifier_head([Letter|Rest]) --> letter(Letter), identifier_tail(Rest).
+identifier_head([Letter]) --> letter(Letter).
 
-identifier_tail([Alphanumeric]) --> alphanumeric(Alphanumeric).
 identifier_tail([Alphanumeric|Rest]) --> alphanumeric(Alphanumeric), identifier_tail(Rest).
+identifier_tail([Alphanumeric]) --> alphanumeric(Alphanumeric).
 
 letter(Letter) --> lowercase(Letter).
 letter(Letter) --> uppercase(Letter).

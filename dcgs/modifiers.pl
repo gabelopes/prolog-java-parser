@@ -2,12 +2,12 @@
 
 :- use_module(common, [rspace/2]).
 
-modifiers([]) --> [].
-modifiers([Modifier]) --> modifier(Modifier).
 modifiers([Modifier|Rest]) -->
   modifier(Modifier),
   rspace,
   modifiers(Rest).
+modifiers([Modifier]) --> modifier(Modifier).
+modifiers([]) --> [].
 
 modifier('abstract') --> "abstract".
 modifier('final') --> "final".

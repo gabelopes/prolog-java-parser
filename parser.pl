@@ -1,7 +1,7 @@
 :- use_module(dcgs/class, [parse_class/7]).
 
 start :-
-  read_file_to_string("/Users/sap/Downloads/Employee.java", Source, []),
+  read_file_to_string("/Users/sap/Downloads/Fiend.java", Source, []),
   parse_class(Source, Modifiers, Name, Parent, Interfaces, Attributes, Methods),
   write("Modifiers are: "),
   writeln(Modifiers),

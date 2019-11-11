@@ -4,6 +4,7 @@
 :- use_module(common).
 :- use_module(modifiers).
 :- use_module(attribute).
+:- use_module(method).
 :- use_module('../utilities/arrays', [extract/3]).
 
 % Grammar
@@ -14,7 +15,6 @@ class(Modifiers, Identifier, Parent, Interfaces, Members) -->
   class,
   rspace,
   identifier(Identifier),
-  rspace,
   extensions(Parent, Interfaces),
   space,
   left_brace,
@@ -26,41 +26,42 @@ class(Modifiers, Identifier, Parent, Interfaces, Members) -->
 
 extensions(Parent, Interfaces) -->
   extends(Parent),
-  rspace,
   implements(Interfaces).
 extensions(Parent, Interfaces) -->
   implements(Interfaces),
-  rspace,
   extends(Parent).
 
-extends([]) --> [].
-extends(Parent) --> 
+extends(Parent) -->
+  rspace,
   extends,
   rspace,
   identifier(Parent).
+extends([]) --> [].
 
-implements([]) --> [].
 implements(Interfaces) -->
+  rspace,
   implements,
   rspace,
   interfaces(Interfaces).
+implements([]) --> [].
 
-interfaces([Interface]) --> identifier(Interface).
 interfaces([Interface|Rest]) -->
   identifier(Interface),
   space,
   comma,
   space,
   interfaces(Rest).
+interfaces([Interface]) --> identifier(Interface).
 
-body([]) --> [].
-body([Member]) --> member(Member).
 body([Member|Rest]) -->
   member(Member),
   space,
   body(Rest).
+body([Member]) --> member(Member).
+body([]) --> [].
 
 member(attribute(Modifiers, Type, Name)) --> attribute(Modifiers, Type, Name).
+member(method(Modifiers, Return, Name, Parameters)) --> method(Modifiers, Return, Name, Parameters).
 
 % Parser
 parse_class(Source, Modifiers, Identifier, Parent, Interfaces, Attributes, Methods) :-
